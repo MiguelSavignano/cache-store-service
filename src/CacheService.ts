@@ -1,35 +1,35 @@
-const sha1 = require('sha1');
-import InMemoryCacheStore from './InMemoryCacheStore'
+const sha1 = require("sha1");
+import InMemoryCacheStore from "./InMemoryCacheStore";
 
-export interface CacheProvider {
-  get: (key: string, callback: (error: any, data: any) => void) => void
-  set: (key: string, data: any, typeExpiration?: string, expirationTimeInseconds?: number) => void
+export interface ICacheProvider {
+  get: (key: string, callback: (error: any, data: any) => void) => void;
+  set: (key: string, data: any, typeExpiration?: string, expirationTimeInseconds?: number) => void;
 }
 
-export interface RequesterProvider {
-  get: (url: string, { params, headers, ...restAxiosOptions }) => Promise<{ data: any }>
+export interface IRequesterProvider {
+  get: (url: string, { params, headers, ...restAxiosOptions }) => Promise<{ data: any }>;
 }
 
 export class CacheService {
-  cacheProvider: CacheProvider;
-  requester: RequesterProvider;
-  constructor(cacheProvider: CacheProvider = new InMemoryCacheStore(), requester?: RequesterProvider) {
+  public cacheProvider: ICacheProvider;
+  public requester: IRequesterProvider;
+  constructor(cacheProvider: ICacheProvider = new InMemoryCacheStore(), requester?: IRequesterProvider) {
     this.cacheProvider = cacheProvider;
     this.requester = requester;
   }
 
-  fetch(key: string, timeInseconds?: number) {
-    return promise =>
+  public fetch(key: string, timeInseconds?: number) {
+    return (promise) =>
       new Promise((resolve, reject) => {
         this.cacheProvider.get(key, (err, dataRedis) => {
           if (err || !dataRedis) {
             promise
-              .then(data => {
+              .then((data) => {
                 if (timeInseconds) {
                   this.cacheProvider.set(
                     key,
                     JSON.stringify(data),
-                    'EX',
+                    "EX",
                     timeInseconds,
                   );
                 } else {
@@ -45,7 +45,7 @@ export class CacheService {
       });
   }
 
-  fetchHttp(keyPrefix: string, timeInseconds?: number) {
+  public fetchHttp(keyPrefix: string, timeInseconds?: number) {
     return (
       url: string,
       { params = {}, headers = {}, ...restAxiosOptions }: any,
@@ -54,7 +54,7 @@ export class CacheService {
       const promise = new Promise((resolve, reject) => {
         this.requester
           .get(url, { params, headers, ...restAxiosOptions })
-          .then(response => {
+          .then((response) => {
             resolve(response.data);
           })
           .catch(reject);
@@ -64,12 +64,12 @@ export class CacheService {
     };
   }
 
-  generateHttpKey(params = {}, headers = {}) {
+  public generateHttpKey(params = {}, headers = {}) {
     return `${sha1(JSON.stringify({ ...params, ...headers }))}`;
   }
 }
 
-export default CacheService
+export default CacheService;
 
 // import CacheService from 'cache-service'
 // cacheService = new cacheService(new Redis(), axios)
