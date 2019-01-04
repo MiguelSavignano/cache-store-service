@@ -1,0 +1,57 @@
+{
+  "name": "cache-store-service",
+  "version": "0.0.1",
+  "description": "Cache http request or any promise in redis, memory, or files",
+  "main": "dist/index.js",
+  "repository": "https://github.com/MiguelSavignano/cache-store-service",
+  "bugs": "https://github.com/MiguelSavignano/cache-store-service/issues",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "npx jest"
+  },
+  "keywords": [
+    "redis",
+    "redis-fetch",
+    "cache",
+    "cache store",
+    "http",
+    "axios cache"
+  ],
+  "author": "Miguel Savignano <migue.masx@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^23.3.11",
+    "@types/node": "^10.12.10",
+    "axios": "^0.18.0",
+    "ioredis": "^4.3.0",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverage": true,
+    "coverageDirectory": "../coverage",
+    "reporters": [
+      "default"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "lcov"
+    ],
+    "testEnvironment": "node"
+  }
+}
