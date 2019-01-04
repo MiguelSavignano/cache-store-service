@@ -2,7 +2,7 @@
 
 Simple package for fetch data from cache.
 
-You don't need to get or set the data from cache, this package; If the cache key it's empty set in the cache the result of a promise, if cache it's not empty get the result from cache.
+You don't need to get or set the data from cache; if the cache key it's empty set in the cache the result of a promise, if cache it's not empty get the result from cache.
 
 Use Nodejs cache in memory or Redis.
 
