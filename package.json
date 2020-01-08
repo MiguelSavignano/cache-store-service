@@ -1,6 +1,6 @@
 {
   "name": "cache-store-service",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Cache http request or any promise in redis, memory, or files",
   "main": "dist/index.js",
   "repository": "https://github.com/MiguelSavignano/cache-store-service",
