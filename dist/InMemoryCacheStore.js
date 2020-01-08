@@ -8,12 +8,12 @@ class InMemoryCacheStore {
         callback(null, this.store[key]);
     }
     set(key, data, typeExpiration, expirationTimeInseconds) {
-        if (typeExpiration == "EX") {
-            const _expirationTimeInseconds = expirationTimeInseconds || 1000 * 60;
+        if (typeExpiration === "EX") {
+            expirationTimeInseconds = expirationTimeInseconds || 1000 * 60;
             this.store[key] = data;
             setTimeout(() => {
                 delete this.store[key];
-            }, _expirationTimeInseconds);
+            }, expirationTimeInseconds);
             return data;
         }
         else {

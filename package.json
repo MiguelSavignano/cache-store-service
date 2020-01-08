@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "lint:fix": "tslint -p tsconfig.json -c tslint.json --fix",
-    "build": "tsc",
+    "build": "rm -fr dist && tsc",
     "test": "jest"
   },
   "keywords": [
